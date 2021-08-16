@@ -48,13 +48,24 @@ public class OverflowableResult<T> {
     }
 
     /**
+     * Throw an exception if this result overflowed.
+     * @return The object
+     */
+    public T exact() {
+        if(overflow) {
+            throw new ArithmeticException("Resulting object overflown and was not correctly handled");
+        }
+        return object;
+    }
+
+    /**
      * Throw an exception if overflow occurred
      * @param exceptionSupplier A function which creates an exception
      * @param <X> The exception type
      * @return This object, if it did not overflow
      * @throws X Overflow occured
      */
-    public <X extends Throwable> T getOrThrow(Supplier<X> exceptionSupplier) throws X {
+    public <X extends Throwable> T exact(Supplier<X> exceptionSupplier) throws X {
         if(overflow) {
             throw exceptionSupplier.get();
         }

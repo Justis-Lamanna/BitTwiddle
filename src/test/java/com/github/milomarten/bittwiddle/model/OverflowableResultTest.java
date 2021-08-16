@@ -18,17 +18,29 @@ class OverflowableResultTest {
     }
 
     @Test
-    public void testGetOrThrowNoOverflow() {
+    public void testExactNoOverflow() {
         OverflowableResult<Integer> result = OverflowableResult.of(1);
-        assertEquals(1, result.getOrThrow(RuntimeException::new));
+        assertEquals(1, result.exact(RuntimeException::new));
     }
 
     @Test
-    public void testGetOrThrowOverflow() {
+    public void testExactOverflow() {
         OverflowableResult<Integer> result = OverflowableResult.overflow(1);
         assertThrows(RuntimeException.class, () -> {
-            result.getOrThrow(RuntimeException::new);
+            result.exact(RuntimeException::new);
         });
+    }
+
+    @Test
+    public void testExactNoOverflowNoExceptionSpecified() {
+        OverflowableResult<Integer> result = OverflowableResult.of(1);
+        assertEquals(1, result.exact());
+    }
+
+    @Test
+    public void testExactOverflowNoExceptionSpecified() {
+        OverflowableResult<Integer> result = OverflowableResult.overflow(1);
+        assertThrows(ArithmeticException.class, result::exact);
     }
 
     @Test
