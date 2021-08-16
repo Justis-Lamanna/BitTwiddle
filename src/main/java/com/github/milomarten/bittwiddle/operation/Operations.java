@@ -1,6 +1,8 @@
 package com.github.milomarten.bittwiddle.operation;
 
 import com.github.milomarten.bittwiddle.model.Bit;
+import com.github.milomarten.bittwiddle.model.SignedByte;
+import com.github.milomarten.bittwiddle.model.UnsignedByte;
 
 import java.util.function.UnaryOperator;
 
@@ -13,6 +15,18 @@ public interface Operations {
      * @return The bit at the specified index
      */
     Bit bit(int index);
+
+    /**
+     * Get the specified Unsigned Byte at the cursor
+     * @return The unsigned byte at the cursor
+     */
+    UnsignedByte unsignedByte();
+
+    /**
+     * Get the specified Snsigned Byte at the cursor
+     * @return The signed byte at the cursor
+     */
+    SignedByte signedByte();
 
     /**
      * Get the specified object at the cursor
@@ -48,17 +62,49 @@ public interface Operations {
      * @param bit The bit to set it to
      * @return Operations object for further modification
      */
-    default Operations set(int index, Bit bit) {
+    default Operations setBit(int index, Bit bit) {
         return replaceBit(index, b -> bit);
     }
 
     /**
-     * Dynamically replace a bit at the cursor, given the previous value
+     * Set a specific UnsignedByte at the cursor, and continue with operations
+     * @param bite The bite to set
+     * @return Operations object for further modification
+     */
+    default Operations setUnsignedByte(UnsignedByte bite) {
+        return replaceUnsignedByte(b -> bite);
+    }
+
+    /**
+     * Set a specific SignedByte at the cursor, and continue with operations
+     * @param bite The bite to set
+     * @return Operations object for further modification
+     */
+    default Operations setSignedByte(SignedByte bite) {
+        return replaceSignedByte(b -> bite);
+    }
+
+    /**
+     * Dynamically replace a bit at the cursor with a new one
      * @param index The index of the bit to modify
      * @param func A function which takes in the old bit and provides the new bit
      * @return Operations object for further modification
      */
     Operations replaceBit(int index, UnaryOperator<Bit> func);
+
+    /**
+     * Dynamically replace the UnsignedByte at the cursor with a new one
+     * @param func A function which takes in the old UnsignedByte and provides a new one
+     * @return Operations object for further modification
+     */
+    Operations replaceUnsignedByte(UnaryOperator<UnsignedByte> func);
+
+    /**
+     * Dynamically replace the SignedByte at the cursor with a new one
+     * @param func A function which takes in the old SignedByte and provides a new one
+     * @return Operations object for further modification
+     */
+    Operations replaceSignedByte(UnaryOperator<SignedByte> func);
 
     /**
      * Set the object at the cursor with a new object
@@ -87,10 +133,4 @@ public interface Operations {
      * @return Operations object for further modification
      */
     Operations follow();
-
-    /**
-     * Ends a follow chunk, returning the cursor to where it was prior to following it
-     * @return Operations object for further modification
-     */
-    Operations back();
 }
