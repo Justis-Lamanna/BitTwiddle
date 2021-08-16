@@ -133,4 +133,9 @@ public interface Operations {
      * @return Operations object for further modification
      */
     Operations follow();
+
+    /**
+     * Apply the chain of Operations in one swoop.
+     */
+    void apply();
 }
