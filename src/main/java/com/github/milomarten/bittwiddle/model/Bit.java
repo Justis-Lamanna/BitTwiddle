@@ -14,6 +14,11 @@ public enum Bit {
         }
 
         @Override
+        public SignedByte toSignedByte() {
+            return SignedByte.ZERO;
+        }
+
+        @Override
         public Bit and(Bit other) {
             return ZERO;
         }
@@ -32,6 +37,16 @@ public enum Bit {
         public Bit xor(Bit other) {
             return or(other);
         }
+
+        @Override
+        public OverflowableResult<Bit> add(Bit other) {
+            return OverflowableResult.of(other);
+        }
+
+        @Override
+        public OverflowableResult<Bit> subtract(Bit other) {
+            return other == ZERO ? OverflowableResult.of(ZERO) : OverflowableResult.overflow(ONE);
+        }
     },
     /**
      * The one bit
@@ -40,6 +55,11 @@ public enum Bit {
         @Override
         public boolean toBoolean() {
             return true;
+        }
+
+        @Override
+        public SignedByte toSignedByte() {
+            return SignedByte.ONE;
         }
 
         @Override
@@ -61,6 +81,16 @@ public enum Bit {
         public Bit xor(Bit other) {
             return other == ZERO ? ONE : ZERO;
         }
+
+        @Override
+        public OverflowableResult<Bit> add(Bit other) {
+            return other == ONE ? OverflowableResult.overflow(Bit.ZERO) : OverflowableResult.of(Bit.ONE);
+        }
+
+        @Override
+        public OverflowableResult<Bit> subtract(Bit other) {
+            return OverflowableResult.of(other == ZERO ? ONE : ZERO);
+        }
     };
 
     /**
@@ -68,6 +98,12 @@ public enum Bit {
      * @return True if this == ONE, false otherwise.
      */
     public abstract boolean toBoolean();
+
+    /**
+     * Upcast this to a SignedByte
+     * @return The upcast value
+     */
+    public abstract SignedByte toSignedByte();
 
     /**
      * Perform a logical AND on this bit and another
@@ -97,11 +133,34 @@ public enum Bit {
     public abstract Bit xor(Bit other);
 
     /**
+     * Add two bits together
+     * @param other The other bit
+     * @return The result of this operation, potentially overflowing
+     */
+    public abstract OverflowableResult<Bit> add(Bit other);
+
+    /**
+     * Subtract two bits together
+     * @param other The other bit
+     * @return The result of this operation, potentially overflowing
+     */
+    public abstract OverflowableResult<Bit> subtract(Bit other);
+
+    /**
+     * Multiply two bits together
+     * @param other The other bit
+     * @return The result of this operation
+     */
+    public Bit multiply(Bit other) {
+        return and(other);
+    }
+
+    /**
      * Get a Bit, given a boolean
      * @param bool The boolean to convert
      * @return Bit.ZERO if false is passed, Bit.ONE if true is passed
      */
-    public static Bit fromBoolean(boolean bool) {
+    public static Bit from(boolean bool) {
         return bool ? ONE : ZERO;
     }
 }
