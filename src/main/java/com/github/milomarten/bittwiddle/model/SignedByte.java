@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString
-public class SignedByte {
+public class SignedByte implements Comparable<SignedByte> {
     /**
      * The SignedByte representing -1
      */
@@ -90,5 +90,65 @@ public class SignedByte {
      */
     public SignedByte xor(SignedByte other) {
         return new SignedByte((byte)(value ^ other.value));
+    }
+
+    /**
+     * Negate this byte.
+     * @return A SignedByte representing the negation, overflowing in the case of negating -128.
+     */
+    public OverflowableResult<SignedByte> negate() {
+        if(value == 0) {
+            return OverflowableResult.of(this);
+        } else if (value == Byte.MIN_VALUE) {
+            return OverflowableResult.overflow(SignedByte.from(-value));
+        }
+        return OverflowableResult.of(SignedByte.from(-value));
+    }
+
+    /**
+     * Add two signed bytes together
+     * @param other The other SignedByte
+     * @return The result of this operation, potentially overflowing
+     */
+    public OverflowableResult<SignedByte> add(SignedByte other) {
+        byte r = (byte)(value + other.value);
+        if (((value ^ r) & (other.value ^ r)) < 0) {
+            return OverflowableResult.overflow(new SignedByte(r));
+        } else {
+            return OverflowableResult.of(new SignedByte(r));
+        }
+    }
+
+    /**
+     * Subtract two signed bytes together
+     * @param other The other SignedByte
+     * @return The result of this operation, potentially overflowing
+     */
+    public OverflowableResult<SignedByte> subtract(SignedByte other) {
+        byte r = (byte)(value - other.value);
+        if((value > 0 && other.value < 0 && r < 0) || (value < 0 && other.value > 0 && r > 0)) {
+            return OverflowableResult.overflow(new SignedByte(r));
+        } else {
+            return OverflowableResult.of(new SignedByte(r));
+        }
+    }
+
+    /**
+     * Multiply two signed bytes together
+     * @param other The other SignedByte
+     * @return The result of this operation, potentially overflowing
+     */
+    public OverflowableResult<SignedByte> multiply(SignedByte other) {
+        long r = (long)value * (long)other.value;
+        if((byte)r != r) {
+            return OverflowableResult.overflow(new SignedByte((byte)r));
+        } else {
+            return OverflowableResult.of(new SignedByte((byte)r));
+        }
+    }
+
+    @Override
+    public int compareTo(SignedByte o) {
+        return Byte.compare(value, o.value);
     }
 }
