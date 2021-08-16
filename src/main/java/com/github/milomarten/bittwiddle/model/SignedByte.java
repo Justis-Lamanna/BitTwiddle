@@ -53,7 +53,7 @@ public class SignedByte implements Comparable<SignedByte> {
      * @param value The byte to use
      * @return A SignedByte
      */
-    static SignedByte from(int value) {
+    public static SignedByte from(int value) {
         return new SignedByte((byte)value);
     }
 
