@@ -71,7 +71,7 @@ public class SignedByte implements Comparable<SignedByte> {
      * @return A SignedByte representing this AND other
      */
     public SignedByte and(SignedByte other) {
-        return new SignedByte((byte)(value & other.value));
+        return from(value & other.value);
     }
 
     /**
@@ -80,7 +80,7 @@ public class SignedByte implements Comparable<SignedByte> {
      * @return A SignedByte representing this OR other
      */
     public SignedByte or(SignedByte other) {
-        return new SignedByte((byte)(value | other.value));
+        return from(value | other.value);
     }
 
     /**
@@ -88,7 +88,7 @@ public class SignedByte implements Comparable<SignedByte> {
      * @return A SignedByte representing NOT this
      */
     public SignedByte not() {
-        return new SignedByte((byte)(~value));
+        return from(~value);
     }
 
     /**
@@ -97,7 +97,7 @@ public class SignedByte implements Comparable<SignedByte> {
      * @return A SignedByte representing this XOR other
      */
     public SignedByte xor(SignedByte other) {
-        return new SignedByte((byte)(value ^ other.value));
+        return from(value ^ other.value);
     }
 
     /**
@@ -121,9 +121,9 @@ public class SignedByte implements Comparable<SignedByte> {
     public OverflowableResult<SignedByte> add(SignedByte other) {
         byte r = (byte)(value + other.value);
         if (((value ^ r) & (other.value ^ r)) < 0) {
-            return OverflowableResult.overflow(new SignedByte(r));
+            return OverflowableResult.overflow(from(r));
         } else {
-            return OverflowableResult.of(new SignedByte(r));
+            return OverflowableResult.of(from(r));
         }
     }
 
@@ -135,9 +135,9 @@ public class SignedByte implements Comparable<SignedByte> {
     public OverflowableResult<SignedByte> subtract(SignedByte other) {
         byte r = (byte)(value - other.value);
         if((value > 0 && other.value < 0 && r < 0) || (value < 0 && other.value > 0 && r > 0)) {
-            return OverflowableResult.overflow(new SignedByte(r));
+            return OverflowableResult.overflow(from(r));
         } else {
-            return OverflowableResult.of(new SignedByte(r));
+            return OverflowableResult.of(from(r));
         }
     }
 
@@ -149,9 +149,9 @@ public class SignedByte implements Comparable<SignedByte> {
     public OverflowableResult<SignedByte> multiply(SignedByte other) {
         long r = (long)value * (long)other.value;
         if((byte)r != r) {
-            return OverflowableResult.overflow(new SignedByte((byte)r));
+            return OverflowableResult.overflow(from((byte)r));
         } else {
-            return OverflowableResult.of(new SignedByte((byte)r));
+            return OverflowableResult.of(from((byte)r));
         }
     }
 

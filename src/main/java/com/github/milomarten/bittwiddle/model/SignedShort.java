@@ -58,4 +58,20 @@ public class SignedShort {
     public static SignedShort from(int value) {
         return new SignedShort((short) value);
     }
+
+    public SignedShort and(SignedShort other) {
+        return from(value & other.value);
+    }
+
+    public SignedShort or(SignedShort other) {
+        return from(value | other.value);
+    }
+
+    public SignedShort xor(SignedShort other) {
+        return from(value ^ other.value);
+    }
+
+    public SignedShort not() {
+        return from(~value);
+    }
 }

@@ -54,7 +54,7 @@ public class UnsignedByte implements Comparable<UnsignedByte> {
      * @return An UnsignedByte representing this AND other
      */
     public UnsignedByte and(UnsignedByte other) {
-        return new UnsignedByte((byte)(value & other.value));
+        return from(value & other.value);
     }
 
     /**
@@ -63,7 +63,7 @@ public class UnsignedByte implements Comparable<UnsignedByte> {
      * @return An UnsignedByte representing this OR other
      */
     public UnsignedByte or(UnsignedByte other) {
-        return new UnsignedByte((byte)(value | other.value));
+        return from(value | other.value);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UnsignedByte implements Comparable<UnsignedByte> {
      * @return An UnsignedByte representing NOT this
      */
     public UnsignedByte not() {
-        return new UnsignedByte((byte)~value);
+        return from(~value);
     }
 
     /**
@@ -80,7 +80,7 @@ public class UnsignedByte implements Comparable<UnsignedByte> {
      * @return An UnsignedByte representing this XOR other
      */
     public UnsignedByte xor(UnsignedByte other) {
-        return new UnsignedByte((byte)(value ^ other.value));
+        return from(value ^ other.value);
     }
 
     /**
