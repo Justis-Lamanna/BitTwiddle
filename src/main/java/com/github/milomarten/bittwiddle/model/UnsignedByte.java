@@ -49,6 +49,14 @@ public class UnsignedByte implements Comparable<UnsignedByte> {
     }
 
     /**
+     * Upcast this UnsignedByte to an UnsignedShort
+     * @return The upcasted value
+     */
+    public UnsignedShort toUnsignedShort() {
+        return UnsignedShort.from(Byte.toUnsignedInt(value));
+    }
+
+    /**
      * Perform the logical and of this and another UnsignedByte
      * @param other The other UnsignedByte
      * @return An UnsignedByte representing this AND other

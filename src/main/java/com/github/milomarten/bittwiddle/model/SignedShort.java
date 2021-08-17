@@ -12,32 +12,32 @@ public class SignedShort implements Comparable<SignedShort> {
     /**
      * Constant of -1
      */
-    public static final SignedShort NEGATIVE_ONE = new SignedShort((short) -1);
+    public static final SignedShort NEGATIVE_ONE = from(-1);
 
     /**
      * Constant of 0
      */
-    public static final SignedShort ZERO = new SignedShort((short) 0);
+    public static final SignedShort ZERO = from(0);
 
     /**
      * Constant of 1
      */
-    public static final SignedShort ONE = new SignedShort((short) 1);
+    public static final SignedShort ONE = from(1);
 
     /**
      * Constant of 2
      */
-    public static final SignedShort TWO = new SignedShort((short) 2);
+    public static final SignedShort TWO = from(2);
 
     /**
      * Constant of the smallest possible SignedShort, -32,768
      */
-    public static final SignedShort MIN = new SignedShort(Short.MIN_VALUE);
+    public static final SignedShort MIN = from(Short.MIN_VALUE);
 
     /**
      * Constant of the largest possible SignedShort, 32,767
      */
-    public static final SignedShort MAX = new SignedShort(Short.MAX_VALUE);
+    public static final SignedShort MAX = from(Short.MAX_VALUE);
 
     private final short value;
 
