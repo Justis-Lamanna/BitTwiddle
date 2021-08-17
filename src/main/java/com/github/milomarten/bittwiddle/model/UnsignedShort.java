@@ -10,23 +10,23 @@ import lombok.ToString;
 @ToString(onlyExplicitlyIncluded = true)
 public class UnsignedShort implements Comparable<UnsignedShort> {
     /**
-     * The SignedByte representing zero
+     * The UnsignedShort representing zero
      */
     public static UnsignedShort ZERO = from(0);
     /**
-     * The SignedByte representing one
+     * The UnsignedShort representing one
      */
     public static UnsignedShort ONE = from(1);
     /**
-     * The SignedByte representing two
+     * The UnsignedShort representing two
      */
     public static UnsignedShort TWO = from(2);
     /**
-     * The SignedByte representing the smallest value, 0
+     * The UnsignedShort representing the smallest value, 0
      */
     public static UnsignedShort MIN = ZERO;
     /**
-     * The SignedByte representing the largest value, 65535
+     * The UnsignedShort representing the largest value, 65535
      */
     public static UnsignedShort MAX = from(65_535);
 
@@ -45,6 +45,14 @@ public class UnsignedShort implements Comparable<UnsignedShort> {
      */
     public static UnsignedShort from(int value) {
         return new UnsignedShort((short)value);
+    }
+
+    /**
+     * Upcast this to an UnsignedWord
+     * @return The upcast value
+     */
+    public UnsignedWord toUnsignedWord() {
+        return UnsignedWord.from(Short.toUnsignedLong(value));
     }
 
     /**
@@ -83,8 +91,8 @@ public class UnsignedShort implements Comparable<UnsignedShort> {
     }
 
     /**
-     * Perform addition between this and another UnsignedByte
-     * @param other The other UnsignedByte
+     * Perform addition between this and another UnsignedShort
+     * @param other The other UnsignedShort
      * @return The result, possibly overflown
      */
     public OverflowableResult<UnsignedShort> add(UnsignedShort other) {
@@ -92,13 +100,13 @@ public class UnsignedShort implements Comparable<UnsignedShort> {
         if(r >= 0 && r <= 65_535) {
             return OverflowableResult.of(from(r));
         } else {
-            return OverflowableResult.overflow(from(r & 0xFF));
+            return OverflowableResult.overflow(from(r & 0xFFFF));
         }
     }
 
     /**
-     * Perform subtraction between this and another UnsignedByte
-     * @param other The other UnsignedByte
+     * Perform subtraction between this and another UnsignedShort
+     * @param other The other UnsignedShort
      * @return The result, possibly overflown
      */
     public OverflowableResult<UnsignedShort> subtract(UnsignedShort other) {
@@ -106,13 +114,13 @@ public class UnsignedShort implements Comparable<UnsignedShort> {
         if(r >= 0 && r <= 65_535) {
             return OverflowableResult.of(from(r));
         } else {
-            return OverflowableResult.overflow(from(r & 0xFF));
+            return OverflowableResult.overflow(from(r & 0xFFFF));
         }
     }
 
     /**
-     * Perform multiplication between this and another UnsignedByte
-     * @param other The other UnsignedByte
+     * Perform multiplication between this and another UnsignedShort
+     * @param other The other UnsignedShort
      * @return The result, possibly overflown
      */
     public OverflowableResult<UnsignedShort> multiply(UnsignedShort other) {

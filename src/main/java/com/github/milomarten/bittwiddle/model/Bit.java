@@ -39,6 +39,11 @@ public enum Bit {
         }
 
         @Override
+        public UnsignedWord toUnsignedWord() {
+            return UnsignedWord.ZERO;
+        }
+
+        @Override
         public Bit and(Bit other) {
             return ZERO;
         }
@@ -100,6 +105,11 @@ public enum Bit {
         @Override
         public SignedWord toSignedWord() {
             return SignedWord.ONE;
+        }
+
+        @Override
+        public UnsignedWord toUnsignedWord() {
+            return UnsignedWord.ONE;
         }
 
         @Override
@@ -168,6 +178,12 @@ public enum Bit {
      * @return The upcast value
      */
     public abstract SignedWord toSignedWord();
+
+    /**
+     * Upcast this to an UnsignedWord
+     * @return The upcast value
+     */
+    public abstract UnsignedWord toUnsignedWord();
 
     /**
      * Perform a logical AND on this bit and another

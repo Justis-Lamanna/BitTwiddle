@@ -41,6 +41,18 @@ public interface Operations {
     UnsignedShort unsignedShort();
 
     /**
+     * Get the SignedWord at the cursor
+     * @return The signed word at the cursor
+     */
+    SignedWord signedWord();
+
+    /**
+     * Get the UnsignedWord at the cursor
+     * @return The unsigned word at the cursor
+     */
+    UnsignedWord unsignedWord();
+
+    /**
      * Get the specified object at the cursor
      * @param parser The parser to use
      * @param <T> The type the parser returns
@@ -115,6 +127,24 @@ public interface Operations {
     }
 
     /**
+     * Set a specific SignedWord at the cursor, and continue with operations
+     * @param word The word to set
+     * @return Operations object for further modification
+     */
+    default Operations setSignedWord(SignedWord word) {
+        return replaceSignedWord(w -> word);
+    }
+
+    /**
+     * Set a specific SignedWord at the cursor, and continue with operations
+     * @param word The word to set
+     * @return Operations object for further modification
+     */
+    default Operations setSignedWord(UnsignedWord word) {
+        return replaceUnsignedWord(w -> word);
+    }
+
+    /**
      * Dynamically replace a bit at the cursor with a new one
      * @param index The index of the bit to modify
      * @param func A function which takes in the old bit and provides the new bit
@@ -149,6 +179,20 @@ public interface Operations {
      * @return Operations object for further modification
      */
     Operations replaceUnsignedShort(UnaryOperator<UnsignedShort> func);
+
+    /**
+     * Dynamically replace the SignedWord at the cursor with a new one
+     * @param func A function which takes in the old SignedWord and provides a new one
+     * @return Operations object for further modification
+     */
+    Operations replaceSignedWord(UnaryOperator<SignedWord> func);
+
+    /**
+     * Dynamically replace the UnsignedWord at the cursor with a new one
+     * @param func A function which takes in the old UnsignedWord and provides a new one
+     * @return Operations object for further modification
+     */
+    Operations replaceUnsignedWord(UnaryOperator<UnsignedWord> func);
 
     /**
      * Set the object at the cursor with a new object
