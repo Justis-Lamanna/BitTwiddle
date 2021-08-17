@@ -83,8 +83,8 @@ public class OverflowableResult<T> {
 
     /**
      * Lazily clamp overflow at a specific value (saturation effect)
-     * @param bound
-     * @return
+     * @param bound A function which supplies a bound if this overflowed
+     * @return The result, or the result of the bound if overflow happened
      */
     public T lazyClamp(Supplier<T> bound) {
         return overflow ? bound.get() : object;
