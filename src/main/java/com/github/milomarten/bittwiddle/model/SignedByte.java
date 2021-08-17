@@ -66,6 +66,14 @@ public class SignedByte implements Comparable<SignedByte> {
     }
 
     /**
+     * Upcast this SignedByte to a SignedWord
+     * @return A SignedWord equal to this SignedByte
+     */
+    public SignedWord toSignedWord() {
+        return SignedWord.from(value);
+    }
+
+    /**
      * Perform the logical and of this and another SignedByte
      * @param other The other SignedByte
      * @return A SignedByte representing this AND other

@@ -60,6 +60,14 @@ public class SignedShort implements Comparable<SignedShort> {
     }
 
     /**
+     * Upcast this SignedShort to a SignedWord
+     * @return A SignedWord equal to this SignedShort
+     */
+    public SignedWord toSignedWord() {
+        return SignedWord.from(value);
+    }
+
+    /**
      * Perform the bitwise and of this and another SignedShort
      * @param other The other SignedShort
      * @return A SignedShort representing this AND other
