@@ -1,6 +1,5 @@
 package com.github.milomarten.bittwiddle.model;
 
-import com.github.milomarten.bittwiddle.operation.ByteParser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

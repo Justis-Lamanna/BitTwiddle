@@ -4,7 +4,7 @@ package com.github.milomarten.bittwiddle.operation;
  * Describes how to turn bytes into data
  * @param <T> The type of object returned
  */
-public interface ByteParser<T> {
+public interface StaticByteParser<T> {
     /**
      * The number of bytes this object requires
      * @return The number of bytes
