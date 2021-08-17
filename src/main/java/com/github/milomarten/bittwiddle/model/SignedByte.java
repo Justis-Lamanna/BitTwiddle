@@ -108,7 +108,7 @@ public class SignedByte implements Comparable<SignedByte> {
         if(value == 0) {
             return OverflowableResult.of(this);
         } else if (value == Byte.MIN_VALUE) {
-            return OverflowableResult.overflow(SignedByte.from(-value));
+            return OverflowableResult.overflow(this);
         }
         return OverflowableResult.of(SignedByte.from(-value));
     }
