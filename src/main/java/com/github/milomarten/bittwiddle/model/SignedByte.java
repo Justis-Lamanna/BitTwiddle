@@ -58,6 +58,14 @@ public class SignedByte implements Comparable<SignedByte> {
     }
 
     /**
+     * Upcast this SignedByte to a SignedShort
+     * @return A SignedShort equal to this SignedByte
+     */
+    public SignedShort toSignedShort() {
+        return SignedShort.from(value);
+    }
+
+    /**
      * Perform the logical and of this and another SignedByte
      * @param other The other SignedByte
      * @return A SignedByte representing this AND other

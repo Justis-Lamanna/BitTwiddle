@@ -1,5 +1,6 @@
 package com.github.milomarten.bittwiddle.model;
 
+import com.github.milomarten.bittwiddle.operation.ByteParser;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -8,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 @ToString(onlyExplicitlyIncluded = true)
-public class UnsignedByte {
+public class UnsignedByte implements Comparable<UnsignedByte> {
     /**
      * The SignedByte representing zero
      */
@@ -122,5 +123,10 @@ public class UnsignedByte {
         } else {
             return OverflowableResult.overflow(from(r & 0xFF));
         }
+    }
+
+    @Override
+    public int compareTo(UnsignedByte o) {
+        return Integer.compareUnsigned(value, o.value);
     }
 }

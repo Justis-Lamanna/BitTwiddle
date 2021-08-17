@@ -24,6 +24,11 @@ public enum Bit {
         }
 
         @Override
+        public SignedShort toSignedShort() {
+            return SignedShort.ZERO;
+        }
+
+        @Override
         public Bit and(Bit other) {
             return ZERO;
         }
@@ -70,6 +75,11 @@ public enum Bit {
         @Override
         public UnsignedByte toUnsignedByte() {
             return UnsignedByte.ONE;
+        }
+
+        @Override
+        public SignedShort toSignedShort() {
+            return SignedShort.ONE;
         }
 
         @Override
@@ -120,6 +130,12 @@ public enum Bit {
      * @return The upcast value
      */
     public abstract UnsignedByte toUnsignedByte();
+
+    /**
+     * Upcast this to a SignedShort
+     * @return The upcast value
+     */
+    public abstract SignedShort toSignedShort();
 
     /**
      * Perform a logical AND on this bit and another

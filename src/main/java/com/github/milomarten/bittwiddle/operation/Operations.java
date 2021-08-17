@@ -2,8 +2,10 @@ package com.github.milomarten.bittwiddle.operation;
 
 import com.github.milomarten.bittwiddle.model.Bit;
 import com.github.milomarten.bittwiddle.model.SignedByte;
+import com.github.milomarten.bittwiddle.model.SignedShort;
 import com.github.milomarten.bittwiddle.model.UnsignedByte;
 
+import java.io.IOException;
 import java.util.function.UnaryOperator;
 
 public interface Operations {
@@ -17,16 +19,22 @@ public interface Operations {
     Bit bit(int index);
 
     /**
-     * Get the specified Unsigned Byte at the cursor
+     * Get the UnsignedByte at the cursor
      * @return The unsigned byte at the cursor
      */
     UnsignedByte unsignedByte();
 
     /**
-     * Get the specified Snsigned Byte at the cursor
+     * Get the SignedByte at the cursor
      * @return The signed byte at the cursor
      */
     SignedByte signedByte();
+
+    /**
+     * Get the SignedShort at the cursor
+     * @return The signed short at the cursor
+     */
+    SignedShort signedShort();
 
     /**
      * Get the specified object at the cursor
@@ -85,6 +93,15 @@ public interface Operations {
     }
 
     /**
+     * Set a specific SignedShort at the cursor, and continue with operations
+     * @param shorp The short to set
+     * @return Operations object for further modification
+     */
+    default Operations setSignedShort(SignedShort shorp) {
+        return replaceSignedShort(s -> shorp);
+    }
+
+    /**
      * Dynamically replace a bit at the cursor with a new one
      * @param index The index of the bit to modify
      * @param func A function which takes in the old bit and provides the new bit
@@ -105,6 +122,13 @@ public interface Operations {
      * @return Operations object for further modification
      */
     Operations replaceSignedByte(UnaryOperator<SignedByte> func);
+
+    /**
+     * Dynamically replace the SignedShort at the cursor with a new one
+     * @param func A function which takes in the old SignedShort and provides a new one
+     * @return Operations object for further modification
+     */
+    Operations replaceSignedShort(UnaryOperator<SignedShort> func);
 
     /**
      * Set the object at the cursor with a new object
@@ -135,7 +159,7 @@ public interface Operations {
     Operations follow();
 
     /**
-     * Apply the chain of Operations in one swoop.
+     * Complete this chain of Operations
      */
-    void apply();
+    void apply() throws IOException;
 }
